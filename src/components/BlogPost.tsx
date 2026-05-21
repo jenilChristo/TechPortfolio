@@ -1,42 +1,127 @@
-import React from 'react';
+import {
+  makeStyles,
+  shorthands,
+  tokens,
+  Text,
+  Badge,
+} from '@fluentui/react-components';
+import { CalendarRegular, TagRegular } from '@fluentui/react-icons';
 import { useParams } from 'react-router-dom';
 import { blogs } from '../data/blogs';
 import ReactMarkdown from 'react-markdown';
 import { format } from 'date-fns';
 
+const useStyles = makeStyles({
+  article: {
+    maxWidth: '900px',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    ...shorthands.padding('40px', '20px'),
+  },
+  header: {
+    marginBottom: '32px',
+  },
+  postMeta: {
+    display: 'flex',
+    alignItems: 'center',
+    ...shorthands.gap('12px'),
+    marginBottom: '16px',
+    fontSize: '14px',
+    color: tokens.colorNeutralForeground3,
+  },
+  postTitle: {
+    fontSize: '42px',
+    fontWeight: 700,
+    marginBottom: '16px',
+    color: tokens.colorNeutralForeground1,
+    lineHeight: '1.2',
+  },
+  tagBadges: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    ...shorthands.gap('8px'),
+  },
+  content: {
+    fontSize: '18px',
+    lineHeight: '1.8',
+    color: tokens.colorNeutralForeground1,
+    '& h2': {
+      fontSize: '32px',
+      fontWeight: 600,
+      marginTop: '32px',
+      marginBottom: '16px',
+      color: tokens.colorNeutralForeground1,
+    },
+    '& h3': {
+      fontSize: '24px',
+      fontWeight: 600,
+      marginTop: '24px',
+      marginBottom: '12px',
+      color: tokens.colorNeutralForeground1,
+    },
+    '& p': {
+      marginBottom: '16px',
+    },
+    '& ul, & ol': {
+      marginBottom: '16px',
+      paddingLeft: '24px',
+    },
+    '& li': {
+      marginBottom: '8px',
+    },
+    '& code': {
+      backgroundColor: tokens.colorNeutralBackground3,
+      ...shorthands.padding('2px', '6px'),
+      ...shorthands.borderRadius(tokens.borderRadiusSmall),
+      fontSize: '16px',
+      fontFamily: 'monospace',
+    },
+    '& pre': {
+      backgroundColor: tokens.colorNeutralBackground3,
+      ...shorthands.padding('16px'),
+      ...shorthands.borderRadius(tokens.borderRadiusMedium),
+      ...shorthands.overflow('auto'),
+      marginBottom: '16px',
+    },
+  },
+  notFound: {
+    textAlign: 'center',
+    ...shorthands.padding('60px', '20px'),
+    fontSize: '24px',
+    color: tokens.colorNeutralForeground3,
+  },
+});
+
 const BlogPost = () => {
+  const styles = useStyles();
   const { id } = useParams();
   const post = blogs.find(p => p.id === id);
 
   if (!post) {
-    return <div>Post not found</div>;
+    return <div className={styles.notFound}>Post not found</div>;
   }
 
   return (
-    <article className="max-w-3xl mx-auto">
-      <div className="mb-8">
-        <div className="flex items-center space-x-2 text-gray-500 mb-4">
+    <article className={styles.article}>
+      <div className={styles.header}>
+        <div className={styles.postMeta}>
+          <CalendarRegular fontSize={16} />
           <span>{format(new Date(post.date), 'MMMM d, yyyy')}</span>
-          <span>•</span>
-          <span>{post.tags[0]}</span>
         </div>
-        <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
-        <div className="flex flex-wrap gap-2">
+        <h1 className={styles.postTitle}>{post.title}</h1>
+        <div className={styles.tagBadges}>
           {post.tags.map((tag) => (
-            <span 
-              key={tag}
-              className="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-sm"
-            >
+            <Badge key={tag} appearance="filled" color="brand" icon={<TagRegular />}>
               {tag}
-            </span>
+            </Badge>
           ))}
         </div>
       </div>
-      <div className="prose prose-lg max-w-none">
+      <div className={styles.content}>
         <ReactMarkdown>{post.content}</ReactMarkdown>
       </div>
     </article>
   );
-}
+};
 
 export default BlogPost;

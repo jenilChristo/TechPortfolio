@@ -6,6 +6,11 @@ export interface Project {
   image: string;
   link?: string;
   github?: string;
+  fullDescription?: string;
+  impact?: string[];
+  metrics?: string[];
+  highlights?: string[];
+  category?: string;
 }
 
 export interface BlogPost {

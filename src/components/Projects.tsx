@@ -1,58 +1,153 @@
-import React from 'react';
+import {
+  makeStyles,
+  shorthands,
+  tokens,
+  Card,
+  Text,
+  Badge,
+  Button,
+} from '@fluentui/react-components';
+import { LinkRegular, CodeRegular, ArrowRightRegular } from '@fluentui/react-icons';
+import { Link } from 'react-router-dom';
 import { projects } from '../data/projects';
-import { ExternalLink, Github } from 'lucide-react';
+
+const useStyles = makeStyles({
+  container: {
+    maxWidth: '1200px',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    ...shorthands.padding('40px', '20px'),
+  },
+  title: {
+    fontSize: '42px',
+    fontWeight: 700,
+    textAlign: 'center',
+    marginBottom: '16px',
+    color: tokens.colorBrandForeground1,
+  },
+  subtitle: {
+    fontSize: '18px',
+    textAlign: 'center',
+    marginBottom: '48px',
+    color: tokens.colorNeutralForeground2,
+    maxWidth: '600px',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+  },
+  projectsGrid: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
+    ...shorthands.gap('32px'),
+  },
+  projectCard: {
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    transition: 'all 0.3s ease',
+    cursor: 'pointer',
+    '&:hover': {
+      transform: 'translateY(-8px)',
+      boxShadow: tokens.shadow28,
+    },
+  },
+  projectImage: {
+    width: '100%',
+    height: '220px',
+    objectFit: 'cover',
+  },
+  projectContent: {
+    ...shorthands.padding('24px'),
+    display: 'flex',
+    flexDirection: 'column',
+    ...shorthands.gap('16px'),
+    flexGrow: 1,
+  },
+  projectTitle: {
+    fontSize: '22px',
+    fontWeight: 600,
+    color: tokens.colorNeutralForeground1,
+    lineHeight: '1.3',
+  },
+  projectDescription: {
+    fontSize: '15px',
+    lineHeight: '1.6',
+    color: tokens.colorNeutralForeground2,
+    flexGrow: 1,
+  },
+  techBadges: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    ...shorthands.gap('8px'),
+  },
+  projectActions: {
+    display: 'flex',
+    ...shorthands.gap('12px'),
+    marginTop: 'auto',
+  },
+});
 
 const Projects = () => {
+  const styles = useStyles();
+
   return (
-    <div>
-      <h1 className="text-4xl font-bold mb-12 text-center">Projects</h1>
-      <div className="grid md:grid-cols-2 gap-8">
+    <div className={styles.container}>
+      <h1 className={styles.title}>Projects</h1>
+      <Text className={styles.subtitle}>
+        Explore my portfolio of impactful projects spanning data platforms, AI systems, and enterprise-scale applications.
+      </Text>
+      <div className={styles.projectsGrid}>
         {projects.map((project) => (
-          <div key={project.id} className="bg-white rounded-xl shadow-md overflow-hidden">
+          <Card key={project.id} className={styles.projectCard}>
             <img 
               src={project.image} 
               alt={project.title}
-              className="w-full h-48 object-cover"
+              className={styles.projectImage}
             />
-            <div className="p-6">
-              <h3 className="text-xl font-bold mb-2">{project.title}</h3>
-              <p className="text-gray-600 mb-4">{project.description}</p>
-              <div className="flex flex-wrap gap-2 mb-4">
-                {project.technologies.map((tech) => (
-                  <span 
-                    key={tech}
-                    className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm"
-                  >
+            <div className={styles.projectContent}>
+              <Text className={styles.projectTitle}>{project.title}</Text>
+              <Text className={styles.projectDescription}>{project.description}</Text>
+              <div className={styles.techBadges}>
+                {project.technologies.slice(0, 4).map((tech) => (
+                  <Badge key={tech} appearance="filled" color="brand">
                     {tech}
-                  </span>
+                  </Badge>
                 ))}
-              </div>
-              <div className="flex space-x-4">
-                {project.link && (
-                  <a 
-                    href={project.link}
-                    className="flex items-center space-x-1 text-blue-600 hover:text-blue-800"
-                  >
-                    <ExternalLink className="h-4 w-4" />
-                    <span>View Project</span>
-                  </a>
+                {project.technologies.length > 4 && (
+                  <Badge appearance="outline" color="informative">
+                    +{project.technologies.length - 4} more
+                  </Badge>
                 )}
+              </div>
+              <div className={styles.projectActions}>
+                <Button 
+                  appearance="primary" 
+                  size="small"
+                  as={Link}
+                  to={`/projects/${project.id}`}
+                  icon={<ArrowRightRegular />}
+                  iconPosition="after"
+                >
+                  Learn More
+                </Button>
                 {project.github && (
-                  <a 
+                  <Button 
+                    appearance="secondary" 
+                    size="small"
+                    as="a" 
                     href={project.github}
-                    className="flex items-center space-x-1 text-gray-600 hover:text-gray-800"
+                    target="_blank"
+                    icon={<CodeRegular />}
                   >
-                    <Github className="h-4 w-4" />
-                    <span>Source Code</span>
-                  </a>
+                    GitHub
+                  </Button>
                 )}
               </div>
             </div>
-          </div>
+          </Card>
         ))}
       </div>
     </div>
   );
-}
+};
 
 export default Projects;
