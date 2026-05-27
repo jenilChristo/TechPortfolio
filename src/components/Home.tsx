@@ -16,7 +16,18 @@ import {
   DocumentRegular,
   CalendarRegular,
   ChevronRightRegular,
+  ChevronLeftRegular,
+  StarRegular,
+  CheckmarkCircleRegular,
+  BrainCircuitRegular,
+  DatabaseRegular,
+  CloudRegular,
+  CodeRegular,
+  DataTrendingRegular,
+  RocketRegular,
+  PeopleTeamRegular,
 } from '@fluentui/react-icons';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { skillsData } from '../data/skills';
 import { projects } from '../data/projects';
@@ -26,10 +37,22 @@ const useStyles = makeStyles({
     width: '100%',
   },
   hero: {
-    backgroundImage: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-    ...shorthands.padding('80px', '20px'),
+    backgroundImage: 'linear-gradient(135deg, #5b4ef5 0%, #8b2fc9 100%)',
+    ...shorthands.padding('100px', '20px', '80px'),
     color: tokens.colorNeutralForegroundInverted,
     textAlign: 'center',
+    position: 'relative',
+    ...shorthands.overflow('hidden'),
+    '&::before': {
+      content: '""',
+      position: 'absolute',
+      top: '0',
+      left: '0',
+      right: '0',
+      bottom: '0',
+      backgroundImage: 'radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%)',
+      pointerEvents: 'none',
+    },
   },
   heroContent: {
     maxWidth: '1200px',
@@ -38,28 +61,95 @@ const useStyles = makeStyles({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    ...shorthands.gap('24px'),
+    ...shorthands.gap('32px'),
+    position: 'relative',
+    zIndex: 1,
   },
   profileImage: {
     width: '180px',
     height: '180px',
     ...shorthands.borderRadius('50%'),
-    ...shorthands.border('4px', 'solid', tokens.colorNeutralForegroundInverted),
+    ...shorthands.border('5px', 'solid', tokens.colorNeutralForegroundInverted),
     objectFit: 'cover',
-    boxShadow: tokens.shadow16,
+    boxShadow: '0 10px 40px rgba(0,0,0,0.3)',
+    transition: 'transform 0.3s ease',
+    position: 'relative',
+    '&:hover': {
+      transform: 'scale(1.05)',
+    },
+  },
+  profileImageContainer: {
+    position: 'relative',
+    display: 'inline-block',
+    ':hover .onlineStatusTooltip': {
+      display: 'block',
+    },
+  },
+  onlineStatusBadge: {
+    position: 'absolute',
+    bottom: '10px',
+    right: '10px',
+    width: '24px',
+    height: '24px',
+    ...shorthands.borderRadius('50%'),
+    ...shorthands.border('4px', 'solid', tokens.colorNeutralForegroundInverted),
+    boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
+    zIndex: 2,
+    cursor: 'pointer',
+    animationName: {
+      '0%, 100%': {
+        opacity: '1',
+      },
+      '50%': {
+        opacity: '0.7',
+      },
+    },
+    animationDuration: '2s',
+    animationTimingFunction: 'cubic-bezier(0.4, 0, 0.6, 1)',
+    animationIterationCount: 'infinite',
+    ':hover': {
+      transform: 'scale(1.1)',
+    },
+  },
+  onlineStatusTooltip: {
+    position: 'absolute',
+    bottom: '-35px',
+    right: '0px',
+    backgroundColor: tokens.colorNeutralBackground1,
+    ...shorthands.padding('6px', '12px'),
+    ...shorthands.borderRadius('6px'),
+    fontSize: '12px',
+    fontWeight: 600,
+    boxShadow: tokens.shadow8,
+    whiteSpace: 'nowrap',
+    ...shorthands.border('1px', 'solid', tokens.colorNeutralStroke1),
+    display: 'none',
   },
   heroTitle: {
-    fontSize: '48px',
+    fontSize: '52px',
     fontWeight: 700,
-    marginBottom: '8px',
-    color: tokens.colorNeutralForegroundInverted,
-  },
-  heroSubtitle: {
-    fontSize: '24px',
-    fontWeight: 400,
+    marginTop: '16px',
     marginBottom: '16px',
     color: tokens.colorNeutralForegroundInverted,
+    lineHeight: 1.2,
+    textShadow: '0 2px 10px rgba(0,0,0,0.2)',
+    '@media (max-width: 768px)': {
+      fontSize: '36px',
+    },
+  },
+  heroSubtitle: {
+    fontSize: '22px',
+    fontWeight: 400,
+    marginTop: '8px',
+    marginBottom: '24px',
+    color: tokens.colorNeutralForegroundInverted,
     opacity: 0.95,
+    lineHeight: 1.5,
+    maxWidth: '800px',
+    textShadow: '0 1px 5px rgba(0,0,0,0.2)',
+    '@media (max-width: 768px)': {
+      fontSize: '18px',
+    },
   },
   heroContact: {
     display: 'flex',
@@ -82,11 +172,34 @@ const useStyles = makeStyles({
     ...shorthands.padding('60px', '20px'),
   },
   sectionTitle: {
-    fontSize: '36px',
+    fontSize: '38px',
     fontWeight: 700,
-    marginBottom: '32px',
+    marginBottom: '16px',
     textAlign: 'center',
     color: tokens.colorBrandForeground1,
+    position: 'relative',
+    paddingBottom: '16px',
+    '&::after': {
+      content: '""',
+      position: 'absolute',
+      bottom: '0',
+      left: '50%',
+      transform: 'translateX(-50%)',
+      width: '60px',
+      height: '4px',
+      backgroundColor: tokens.colorBrandBackground,
+      ...shorthands.borderRadius('2px'),
+    },
+  },
+  sectionSubtitle: {
+    fontSize: '18px',
+    textAlign: 'center',
+    color: tokens.colorNeutralForeground2,
+    marginBottom: '32px',
+    maxWidth: '700px',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    lineHeight: 1.6,
   },
   aboutText: {
     fontSize: '18px',
@@ -96,7 +209,8 @@ const useStyles = makeStyles({
   },
   githubSection: {
     backgroundColor: tokens.colorNeutralBackground2,
-    ...shorthands.padding('60px', '20px'),
+    ...shorthands.padding('70px', '20px'),
+    position: 'relative',
   },
   githubContainer: {
     maxWidth: '1200px',
@@ -106,18 +220,25 @@ const useStyles = makeStyles({
   githubStatsGrid: {
     display: 'grid',
     gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-    ...shorthands.gap('20px'),
-    marginTop: '32px',
+    ...shorthands.gap('24px'),
+    marginTop: '40px',
   },
   githubCard: {
     ...shorthands.padding('0px'),
     backgroundColor: tokens.colorNeutralBackground1,
     ...shorthands.overflow('hidden'),
+    transition: 'all 0.3s ease',
+    ...shorthands.border('1px', 'solid', tokens.colorNeutralStroke2),
+    '&:hover': {
+      transform: 'translateY(-4px)',
+      boxShadow: tokens.shadow16,
+    },
   },
   githubImage: {
     width: '100%',
     height: 'auto',
     display: 'block',
+    transition: 'opacity 0.3s ease',
   },
   skillsGrid: {
     display: 'grid',
@@ -127,17 +248,52 @@ const useStyles = makeStyles({
   },
   skillCard: {
     height: '100%',
+    position: 'relative',
+    ...shorthands.overflow('hidden'),
+    transition: 'all 0.3s ease',
+    ...shorthands.border('2px', 'solid', 'transparent'),
+    backgroundImage: 'linear-gradient(white, white), linear-gradient(135deg, #5b4ef5 0%, #8b2fc9 100%)',
+    backgroundOrigin: 'border-box',
+    backgroundClip: 'padding-box, border-box',
+    '&:hover': {
+      transform: 'translateY(-6px)',
+      boxShadow: '0 12px 35px rgba(91, 78, 245, 0.15)',
+      ...shorthands.borderColor(tokens.colorBrandStroke1),
+    },
   },
   skillCategory: {
     fontSize: '20px',
-    fontWeight: 600,
+    fontWeight: 700,
     marginBottom: '16px',
     color: tokens.colorBrandForeground1,
+    display: 'flex',
+    alignItems: 'center',
+    ...shorthands.gap('8px'),
+    backgroundImage: 'linear-gradient(135deg, #5b4ef5 0%, #8b2fc9 100%)',
+    WebkitBackgroundClip: 'text',
+    WebkitTextFillColor: 'transparent',
+    backgroundClip: 'text',
   },
   skillBadges: {
     display: 'flex',
     flexWrap: 'wrap',
-    ...shorthands.gap('8px'),
+    ...shorthands.gap('10px'),
+  },
+  skillBadge: {
+    ...shorthands.padding('6px', '14px'),
+    ...shorthands.borderRadius('16px'),
+    fontSize: '13px',
+    fontWeight: 500,
+    backgroundColor: tokens.colorBrandBackground2,
+    color: tokens.colorBrandForeground1,
+    ...shorthands.border('1px', 'solid', tokens.colorBrandStroke1),
+    transition: 'all 0.2s ease',
+    cursor: 'default',
+    '&:hover': {
+      backgroundColor: tokens.colorBrandBackground,
+      color: tokens.colorNeutralForegroundInverted,
+      transform: 'scale(1.05)',
+    },
   },
   timeline: {
     position: 'relative',
@@ -195,19 +351,99 @@ const useStyles = makeStyles({
       marginRight: '8px',
     },
   },
+  carouselContainer: {
+    position: 'relative',
+    marginTop: '32px',
+    ...shorthands.padding('20px', '60px'),
+    '@media (max-width: 768px)': {
+      ...shorthands.padding('20px', '40px'),
+    },
+  },
+  carouselWrapper: {
+    ...shorthands.overflow('hidden'),
+  },
+  carouselTrack: {
+    display: 'flex',
+    transition: 'transform 0.5s ease-in-out',
+  },
+  carouselSlide: {
+    minWidth: '100%',
+    ...shorthands.padding('0px', '10px'),
+  },
   projectsPreview: {
     display: 'grid',
     gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-    ...shorthands.gap('24px'),
+    ...shorthands.gap('28px'),
     marginTop: '32px',
+  },
+  carouselButton: {
+    position: 'absolute',
+    top: '50%',
+    transform: 'translateY(-50%)',
+    zIndex: 10,
+    width: '48px',
+    height: '48px',
+    ...shorthands.borderRadius('50%'),
+    backgroundColor: tokens.colorNeutralBackground1,
+    ...shorthands.border('2px', 'solid', tokens.colorBrandStroke1),
+    boxShadow: tokens.shadow8,
+    cursor: 'pointer',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    transition: 'all 0.3s ease',
+    '&:hover': {
+      backgroundColor: tokens.colorBrandBackground,
+      transform: 'translateY(-50%) scale(1.1)',
+      boxShadow: tokens.shadow16,
+    },
+    '&:disabled': {
+      opacity: 0.4,
+      cursor: 'not-allowed',
+      '&:hover': {
+        transform: 'translateY(-50%)',
+      },
+    },
+  },
+  carouselButtonLeft: {
+    left: '0px',
+  },
+  carouselButtonRight: {
+    right: '0px',
+  },
+  carouselDots: {
+    display: 'flex',
+    justifyContent: 'center',
+    ...shorthands.gap('10px'),
+    marginTop: '24px',
+  },
+  carouselDot: {
+    width: '12px',
+    height: '12px',
+    ...shorthands.borderRadius('50%'),
+    backgroundColor: tokens.colorNeutralStroke1,
+    cursor: 'pointer',
+    transition: 'all 0.3s ease',
+    ...shorthands.border('none'),
+    '&:hover': {
+      backgroundColor: tokens.colorBrandStroke1,
+    },
+  },
+  carouselDotActive: {
+    backgroundColor: tokens.colorBrandBackground,
+    width: '32px',
+    ...shorthands.borderRadius('6px'),
   },
   projectCard: {
     height: '100%',
     cursor: 'pointer',
-    transition: 'transform 0.2s',
+    transition: 'all 0.3s ease',
+    ...shorthands.border('1px', 'solid', tokens.colorNeutralStroke2),
+    ...shorthands.overflow('hidden'),
     '&:hover': {
-      transform: 'translateY(-4px)',
-      boxShadow: tokens.shadow16,
+      transform: 'translateY(-8px)',
+      boxShadow: '0 12px 40px rgba(0,0,0,0.15)',
+      ...shorthands.borderColor(tokens.colorBrandStroke1),
     },
   },
   projectImage: {
@@ -238,32 +474,78 @@ const useStyles = makeStyles({
   educationSection: {
     backgroundColor: tokens.colorNeutralBackground2,
   },
-  educationCard: {
-    maxWidth: '800px',
+  educationGrid: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
+    ...shorthands.gap('32px'),
+    maxWidth: '1000px',
     marginLeft: 'auto',
     marginRight: 'auto',
   },
+  educationCard: {
+    position: 'relative',
+    ...shorthands.overflow('hidden'),
+    transition: 'all 0.3s ease',
+    ...shorthands.border('2px', 'solid', 'transparent'),
+    backgroundImage: 'linear-gradient(white, white), linear-gradient(135deg, #5b4ef5 0%, #8b2fc9 100%)',
+    backgroundOrigin: 'border-box',
+    backgroundClip: 'padding-box, border-box',
+    '&:hover': {
+      transform: 'translateY(-6px)',
+      boxShadow: '0 12px 35px rgba(91, 78, 245, 0.15)',
+    },
+    '&::before': {
+      content: '""',
+      position: 'absolute',
+      top: '0',
+      left: '0',
+      right: '0',
+      height: '4px',
+      backgroundImage: 'linear-gradient(90deg, #5b4ef5 0%, #8b2fc9 100%)',
+    },
+  },
+  educationContent: {
+    ...shorthands.padding('32px'),
+  },
   degree: {
-    fontSize: '20px',
-    fontWeight: 600,
+    fontSize: '22px',
+    fontWeight: 700,
     marginBottom: '8px',
     color: tokens.colorNeutralForeground1,
+    display: 'flex',
+    alignItems: 'center',
+    ...shorthands.gap('12px'),
+  },
+  degreeIcon: {
+    fontSize: '28px',
+    color: tokens.colorBrandForeground1,
   },
   institution: {
-    fontSize: '16px',
+    fontSize: '18px',
     color: tokens.colorBrandForeground1,
-    marginBottom: '4px',
+    fontWeight: 600,
+    marginBottom: '12px',
+    marginLeft: '40px',
+  },
+  educationMeta: {
+    display: 'flex',
+    alignItems: 'center',
+    ...shorthands.gap('8px'),
+    color: tokens.colorNeutralForeground3,
+    fontSize: '14px',
+    marginLeft: '40px',
   },
   ctaSection: {
     textAlign: 'center',
-    ...shorthands.padding('60px', '20px'),
-    backgroundColor: tokens.colorBrandBackground2Hover,
+    ...shorthands.padding('80px', '20px'),
+    backgroundImage: 'linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%)',
+    ...shorthands.borderTop('1px', 'solid', tokens.colorNeutralStroke2),
   },
   ctaTitle: {
-    fontSize: '32px',
-    fontWeight: 600,
+    fontSize: '36px',
+    fontWeight: 700,
     marginBottom: '16px',
-    color: tokens.colorNeutralForeground1,
+    color: tokens.colorBrandForeground1,
   },
   ctaButtons: {
     display: 'flex',
@@ -276,6 +558,90 @@ const useStyles = makeStyles({
 
 const Home = () => {
   const styles = useStyles();
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [presenceStatus, setPresenceStatus] = useState<{ color: string; status: string }>({
+    color: '#6b7280',
+    status: 'Offline',
+  });
+  const featuredProjects = projects.slice(0, 6);
+
+  // Fetch availability status from backend API
+  useEffect(() => {
+    const fetchAvailability = async () => {
+      try {
+        const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+        const response = await fetch(`${apiUrl}/api/availability/status`);
+        
+        if (response.ok) {
+          const data = await response.json();
+          setPresenceStatus({
+            color: data.color,
+            status: data.status,
+          });
+        } else {
+          console.error('Failed to fetch availability status');
+          // Fallback to offline status
+          setPresenceStatus({
+            color: '#6b7280',
+            status: 'Offline',
+          });
+        }
+      } catch (error) {
+        console.error('Error fetching availability:', error);
+        // Fallback to offline status
+        setPresenceStatus({
+          color: '#6b7280',
+          status: 'Offline',
+        });
+      }
+    };
+
+    // Fetch immediately
+    fetchAvailability();
+
+    // Update every minute to keep status current
+    const interval = setInterval(fetchAvailability, 60000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  // Skill category icon mapping
+  const skillCategoryIcons: { [key: string]: JSX.Element } = {
+    'Generative AI & Agentic AI': <BrainCircuitRegular fontSize={24} />,
+    'Distributed Data Systems': <DatabaseRegular fontSize={24} />,
+    'Backend & Cloud Engineering': <CloudRegular fontSize={24} />,
+    'Frontend & Full Stack': <CodeRegular fontSize={24} />,
+    'Machine Learning & Data Science': <DataTrendingRegular fontSize={24} />,
+    'Developer Productivity & Tooling': <RocketRegular fontSize={24} />,
+    'Leadership & Collaboration': <PeopleTeamRegular fontSize={24} />,
+  };
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % featuredProjects.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + featuredProjects.length) % featuredProjects.length);
+  };
+
+  const goToSlide = (index: number) => {
+    setCurrentSlide(index);
+  };
+
+  // Handle status badge click to trigger login
+  const handleStatusClick = async () => {
+    if (presenceStatus.status === 'Offline') {
+      const success = await login();
+      if (success) {
+        // Fetch presence immediately after login
+        const presence = await getUserPresence();
+        if (presence) {
+          const status = mapPresenceToStatus(presence.availability, presence.activity);
+          setPresenceStatus(status);
+        }
+      }
+    }
+  };
 
   const experiences = [
     {
@@ -322,11 +688,27 @@ const Home = () => {
       {/* Hero Section */}
       <section className={styles.hero}>
         <div className={styles.heroContent}>
-          <img
-            src="/images/profile.jpg"
-            alt="L. Jenil Christo"
-            className={styles.profileImage}
-          />
+          <div className={styles.profileImageContainer}>
+            <img
+              src="/images/profile.jpg"
+              alt="L. Jenil Christo"
+              className={styles.profileImage}
+            />
+            <div 
+              className={styles.onlineStatusBadge}
+              style={{ backgroundColor: presenceStatus.color }}
+              onClick={handleStatusClick}
+              role="button"
+              aria-label={`Status: ${presenceStatus.status}. Click to ${presenceStatus.status === 'Offline' ? 'sign in with Microsoft' : 'view status'}`}
+              tabIndex={0}
+            />
+            <div 
+              className={`${styles.onlineStatusTooltip} onlineStatusTooltip`}
+              style={{ color: presenceStatus.color }}
+            >
+              ● {presenceStatus.status}{presenceStatus.status === 'Offline' ? ' (Click to sign in)' : ''}
+            </div>
+          </div>
           <div>
             <h1 className={styles.heroTitle}>L. Jenil Christo</h1>
             <h2 className={styles.heroSubtitle}>
@@ -361,6 +743,9 @@ const Home = () => {
       {/* About Section */}
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>About Me</h2>
+        <Text className={styles.sectionSubtitle}>
+          Engineering leader with deep expertise in distributed systems, AI, and full-stack development
+        </Text>
         <Text className={styles.aboutText}>
           Engineering leader and Senior Software Engineer with <strong>10+ years of experience</strong> building and operating large-scale distributed data platforms, Backend Services and AI-powered systems.
         </Text>
@@ -376,6 +761,9 @@ const Home = () => {
       <section className={styles.githubSection}>
         <div className={styles.githubContainer}>
           <h2 className={styles.sectionTitle}>GitHub Contributions</h2>
+          <Text className={styles.sectionSubtitle}>
+            Open source contributions and continuous learning
+          </Text>
           <div className={styles.githubStatsGrid}>
             <Card className={styles.githubCard}>
               <img 
@@ -403,15 +791,25 @@ const Home = () => {
       {/* Skills Section */}
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>Core Skills</h2>
+        <Text className={styles.sectionSubtitle}>
+          Comprehensive expertise across modern technology stack
+        </Text>
         <div className={styles.skillsGrid}>
           {skillsData.map((category, index) => (
             <Card key={index} className={styles.skillCard}>
-              <CardHeader header={<Text className={styles.skillCategory}>{category.category}</Text>} />
+              <CardHeader 
+                header={
+                  <Text className={styles.skillCategory}>
+                    {skillCategoryIcons[category.category] || <StarRegular fontSize={24} />}
+                    {category.category}
+                  </Text>
+                } 
+              />
               <div className={styles.skillBadges}>
                 {category.skills.map((skill, skillIndex) => (
-                  <Badge key={skillIndex} appearance="filled" color="brand">
+                  <span key={skillIndex} className={styles.skillBadge}>
                     {skill}
-                  </Badge>
+                  </span>
                 ))}
               </div>
             </Card>
@@ -420,8 +818,11 @@ const Home = () => {
       </section>
 
       {/* Work Experience */}
-      <section className={styles.section} style={{ backgroundColor: tokens.colorNeutralBackground2 }}>
+      <section className={styles.section} style={{ backgroundColor: tokens.colorNeutralBackground2, paddingTop: '70px', paddingBottom: '70px' }}>
         <h2 className={styles.sectionTitle}>Work Experience</h2>
+        <Text className={styles.sectionSubtitle}>
+          10+ years building enterprise-scale platforms and AI-powered systems
+        </Text>
         <div className={styles.timeline}>
           {experiences.map((exp, index) => (
             <div key={index} className={styles.timelineItem}>
@@ -453,27 +854,63 @@ const Home = () => {
       {/* Featured Projects */}
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>Featured Projects</h2>
-        <div className={styles.projectsPreview}>
-          {projects.slice(0, 3).map((project) => (
-            <Card key={project.id} className={styles.projectCard} as={Link} to={`/projects/${project.id}`}>
-              <img src={project.image} alt={project.title} className={styles.projectImage} />
-              <div className={styles.projectContent}>
-                <h3 className={styles.projectTitle}>{project.title}</h3>
-                <p className={styles.projectDescription}>{project.description}</p>
-                <div className={styles.techBadges}>
-                  {project.technologies.slice(0, 3).map((tech, techIndex) => (
-                    <Badge key={techIndex} appearance="outline" color="informative">
-                      {tech}
-                    </Badge>
-                  ))}
-                  {project.technologies.length > 3 && (
-                    <Badge appearance="outline" color="subtle">
-                      +{project.technologies.length - 3} more
-                    </Badge>
-                  )}
+        <Text className={styles.sectionSubtitle}>
+          Showcasing impactful projects across data platforms, AI systems, and enterprise applications
+        </Text>
+        <div className={styles.carouselContainer}>
+          <button 
+            className={`${styles.carouselButton} ${styles.carouselButtonLeft}`}
+            onClick={prevSlide}
+            aria-label="Previous project"
+          >
+            <ChevronLeftRegular fontSize={24} style={{ color: tokens.colorBrandForeground1 }} />
+          </button>
+          <div className={styles.carouselWrapper}>
+            <div 
+              className={styles.carouselTrack}
+              style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+            >
+              {featuredProjects.map((project) => (
+                <div key={project.id} className={styles.carouselSlide}>
+                  <Card className={styles.projectCard} as={Link} to={`/projects/${project.id}`}>
+                    <img src={project.image} alt={project.title} className={styles.projectImage} />
+                    <div className={styles.projectContent}>
+                      <h3 className={styles.projectTitle}>{project.title}</h3>
+                      <p className={styles.projectDescription}>{project.description}</p>
+                      <div className={styles.techBadges}>
+                        {project.technologies.slice(0, 4).map((tech, techIndex) => (
+                          <Badge key={techIndex} appearance="outline" color="informative">
+                            {tech}
+                          </Badge>
+                        ))}
+                        {project.technologies.length > 4 && (
+                          <Badge appearance="outline" color="subtle">
+                            +{project.technologies.length - 4} more
+                          </Badge>
+                        )}
+                      </div>
+                    </div>
+                  </Card>
                 </div>
-              </div>
-            </Card>
+              ))}
+            </div>
+          </div>
+          <button 
+            className={`${styles.carouselButton} ${styles.carouselButtonRight}`}
+            onClick={nextSlide}
+            aria-label="Next project"
+          >
+            <ChevronRightRegular fontSize={24} style={{ color: tokens.colorBrandForeground1 }} />
+          </button>
+        </div>
+        <div className={styles.carouselDots}>
+          {featuredProjects.map((_, index) => (
+            <button
+              key={index}
+              className={`${styles.carouselDot} ${index === currentSlide ? styles.carouselDotActive : ''}`}
+              onClick={() => goToSlide(index)}
+              aria-label={`Go to project ${index + 1}`}
+            />
           ))}
         </div>
         <div style={{ textAlign: 'center', marginTop: '32px' }}>
@@ -484,23 +921,39 @@ const Home = () => {
       </section>
 
       {/* Education */}
-      <section className={`${styles.section} ${styles.educationSection}`}>
+      <section className={`${styles.section} ${styles.educationSection}`} style={{ paddingTop: '70px', paddingBottom: '70px' }}>
         <h2 className={styles.sectionTitle}>Education</h2>
-        <Card className={styles.educationCard}>
-          <div style={{ padding: '24px' }}>
-            <div className={styles.degree}>
-              <DocumentRegular style={{ marginRight: '8px', verticalAlign: 'middle' }} />
-              Executive PGP in Machine Learning and AI
+        <Text className={styles.sectionSubtitle}>
+          Academic foundation in Computer Science and Machine Learning
+        </Text>
+        <div className={styles.educationGrid}>
+          <Card className={styles.educationCard}>
+            <div className={styles.educationContent}>
+              <div className={styles.degree}>
+                <DocumentRegular className={styles.degreeIcon} />
+                <span>Executive Post Graduate Program in Machine Learning & Artificial Intelligence</span>
+              </div>
+              <div className={styles.institution}>IIIT Bangalore</div>
+              <div className={styles.educationMeta}>
+                <CheckmarkCircleRegular fontSize={16} />
+                <span>Specialized in Machine Learning and Artificial Intelligence</span>
+              </div>
             </div>
-            <div className={styles.institution}>IIIT Bangalore</div>
-            <div style={{ margin: '16px 0', height: '1px', backgroundColor: tokens.colorNeutralStroke1 }} />
-            <div className={styles.degree}>
-              <DocumentRegular style={{ marginRight: '8px', verticalAlign: 'middle' }} />
-              Bachelor of Science in Computer Science
+          </Card>
+          <Card className={styles.educationCard}>
+            <div className={styles.educationContent}>
+              <div className={styles.degree}>
+                <DocumentRegular className={styles.degreeIcon} />
+                <span>B.E. Computer Science and Engineering</span>
+              </div>
+              <div className={styles.institution}>Anna University</div>
+              <div className={styles.educationMeta}>
+                <CheckmarkCircleRegular fontSize={16} />
+                <span>Foundation in Computer Science and Engineering</span>
+              </div>
             </div>
-            <div className={styles.institution}>Anna University</div>
-          </div>
-        </Card>
+          </Card>
+        </div>
       </section>
 
       {/* CTA Section */}

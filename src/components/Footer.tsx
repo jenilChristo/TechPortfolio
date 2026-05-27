@@ -15,9 +15,9 @@ import {
 const useStyles = makeStyles({
   footer: {
     backgroundColor: tokens.colorNeutralBackground2,
-    ...shorthands.borderTop('1px', 'solid', tokens.colorNeutralStroke1),
+    ...shorthands.borderTop('2px', 'solid', tokens.colorNeutralStroke1),
     ...shorthands.padding('48px', '20px', '32px'),
-    marginTop: '60px',
+    marginTop: '0px',
   },
   footerContent: {
     maxWidth: '1200px',
@@ -25,7 +25,7 @@ const useStyles = makeStyles({
     marginRight: 'auto',
     display: 'flex',
     flexDirection: 'column',
-    ...shorthands.gap('28px'),
+    ...shorthands.gap('32px'),
   },
   contactSection: {
     display: 'flex',
@@ -71,10 +71,11 @@ const useStyles = makeStyles({
   },
   name: {
     textAlign: 'center',
-    fontSize: '20px',
-    fontWeight: 600,
+    fontSize: '22px',
+    fontWeight: 700,
     color: tokens.colorBrandForeground1,
-    marginBottom: '8px',
+    marginBottom: '12px',
+    lineHeight: 1.4,
   },
 });
 

@@ -1,0 +1,6 @@
+<step title="Incoming Request" date="2026-05-21T16:02:53.083" instance="402821" url="/api/deployments?warmup=true" method="GET" type="request" pid="843,1,3" Accept="*/*" Host="techportfolio-app.scm.azurewebsites.net" User-Agent="AZURECLI/2.80.0 (MSI)" Accept-Encoding="gzip, deflate" Authorization="Bea..." Cookie="ARRAffinity=402821769e385ba6aee3d1820d8244140b7f1a3fbaaaffc8780dfe140e606fcb; ARRAffinitySameSite=402821769e385ba6aee3d1820d8244140b7f1a3fbaaaffc8780dfe140e606fcb" x-ms-client-request-id="7cb16642-552e-11f1-95c2-c4cb7690d5a7" X-ARR-LOG-ID="7cb16642-552e-11f1-95c2-c4cb7690d5a7" CLIENT-IP="4.194.122.136:13826" X-SITE-DEPLOYMENT-ID="techportfolio-app" WAS-DEFAULT-HOSTNAME="techportfolio-app.scm.azurewebsites.net" X-Forwarded-Proto="https" X-AppService-Proto="https" X-Forwarded-TlsVersion="1.3" X-WAWS-Unencoded-URL="/api/deployments?warmup=true" X-Client-IP="4.194.122.136" X-Client-Port="13826" >
+  <step title="DeploymentService.GetCurrentEtag" date="2026-05-21T16:03:02.596" >
+    <step title="Current Etag: &quot;f72148b001b31ddd&quot;, Cached Etag: " date="2026-05-21T16:03:05.607" /><!-- duration: 55ms -->
+  </step><!-- duration: 3068ms -->
+  <step title="DeploymentService.GetDeployResults" date="2026-05-21T16:03:05.689" >
+    <step title="DeploymentManager.GetResults" date="2026-05-21T16:03:05.719" 

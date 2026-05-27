@@ -1,0 +1,113 @@
+2026-05-21T16:04:56  Fetching changes.
+2026-05-21T16:04:56    Starting  LocalZipHandler
+2026-05-21T16:04:56    Cleaning up temp folders from previous zip deployments and extracting pushed zip file /tmp/zipdeploy/7095b3df-79e2-4213-b775-173b087a27d6.zip (0.34 MB) to /tmp/zipdeploy/extracted
+2026-05-21T16:05:03  Updating submodules.
+2026-05-21T16:05:05  Preparing deployment for commit id '58506c6b-d'.
+2026-05-21T16:05:06  PreDeployment: context.CleanOutputPath False
+2026-05-21T16:05:06  PreDeployment: context.OutputPath /home/site/wwwroot
+2026-05-21T16:05:07  Repository path is /tmp/zipdeploy/extracted
+2026-05-21T16:05:07  Running oryx build...
+2026-05-21T16:05:07    Command: oryx build /tmp/zipdeploy/extracted -o /home/site/wwwroot --platform nodejs --platform-version 22 -p virtualenv_name= --log-file /tmp/build-debug.log  -i /tmp/8deb752b956978a -p compress_node_modules=tar-gz | tee /tmp/oryx-build.log
+2026-05-21T16:05:14    Operation performed by Microsoft Oryx, https://github.com/Microsoft/Oryx
+2026-05-21T16:05:14    You can report issues at https://github.com/Microsoft/Oryx/issues
+2026-05-21T16:05:14    
+2026-05-21T16:05:14    Oryx Version: 0.2.20260420.1+83c04e9ee1882dc90d279b63348824daedbd3c96, Commit: 83c04e9ee1882dc90d279b63348824daedbd3c96, ReleaseTagName: 20260420.1
+2026-05-21T16:05:14    
+2026-05-21T16:05:14    Build Operation ID: 89d312685c6d31cf
+2026-05-21T16:05:14    Repository Commit : 58506c6b-d09e-4006-a53e-2934c7912168
+2026-05-21T16:05:14    OS Type           : bookworm
+2026-05-21T16:05:14    Image Type        : githubactions
+2026-05-21T16:05:14    
+2026-05-21T16:05:14    Primary SDK Storage URL: https://oryx-cdn.microsoft.io
+2026-05-21T16:05:15    Backup SDK Storage URL: 
+2026-05-21T16:05:15    ACR SDK Registry URL: (not set)
+2026-05-21T16:05:15    SDK provider status:
+2026-05-21T16:05:15      External ACR SDK provider: Enabled
+2026-05-21T16:05:15      External SDK provider: Enabled
+2026-05-21T16:05:15      Direct ACR SDK provider: Disabled
+2026-05-21T16:05:15      Blob SDK provider: Enabled
+2026-05-21T16:05:15    External ACR SDK provider is enabled. Only using user-specified platform: nodejs
+2026-05-21T16:05:16    Detecting platforms...
+2026-05-21T16:05:19    External ACR provider resolved version '22.22.2' for nodejs.
+2026-05-21T16:05:19    Version resolved using external ACR SDK provider.
+2026-05-21T16:05:19    Detected following platforms:
+2026-05-21T16:05:19      nodejs: 22.22.2
+2026-05-21T16:05:19    Requesting SDK from ACR via external provider: nodejs 22.22.2 (bookworm)
+2026-05-21T16:05:32    Successfully pulled SDK from ACR via external provider: nodejs 22.22.2
+2026-05-21T16:05:33    SDK for 'nodejs' version '22.22.2' fetched via external ACR provider.
+2026-05-21T16:05:33    Version '22.22.2' of platform 'nodejs' is not installed. Generating script to install it...
+2026-05-21T16:05:33    Detected the following frameworks: Express
+2026-05-21T16:05:36    
+2026-05-21T16:05:36    Using intermediate directory '/tmp/8deb752b956978a'.
+2026-05-21T16:05:36    
+2026-05-21T16:05:36    Copying files to the intermediate directory...
+2026-05-21T16:05:37    Copying files to intermediate directory done in 0 sec(s).
+2026-05-21T16:05:37    
+2026-05-21T16:05:37    Source directory     : /tmp/8deb752b956978a
+2026-05-21T16:05:37    Destination directory: /home/site/wwwroot
+2026-05-21T16:05:37    
+2026-05-21T16:05:37    Installing platform...
+2026-05-21T16:05:37    
+2026-05-21T16:05:37    Downloading and extracting 'nodejs' version '22.22.2' to '/tmp/oryx/platforms/nodejs/22.22.2'...
+2026-05-21T16:05:37    Detected image debian flavor: bookworm.
+2026-05-21T16:05:37    SDK binary download was skipped. Looking for cached tarball...
+2026-05-21T16:05:37    Found tarball at /var/OryxAcrSdks/nodejs/nodejs-bookworm-22.22.2.tar.gz
+2026-05-21T16:06:16    Successfully extracted nodejs version 22.22.2 from cached tarball.
+2026-05-21T16:06:16    
+2026-05-21T16:06:16    Platform installation done in 40 sec(s).
+2026-05-21T16:06:17    Running build script snippets...
+2026-05-21T16:06:17    Removing existing manifest file
+2026-05-21T16:06:17    Creating directory for command manifest file if it does not exist
+2026-05-21T16:06:17    Creating a manifest file...
+2026-05-21T16:06:17    Node Build Command Manifest file created.
+2026-05-21T16:06:17    
+2026-05-21T16:06:17    Using Node version:
+2026-05-21T16:06:17    v22.22.2
+2026-05-21T16:06:17    
+2026-05-21T16:06:18    Using Npm version:
+2026-05-21T16:06:19    10.9.7
+2026-05-21T16:06:20    
+2026-05-21T16:06:20    Running 'npm install'...
+2026-05-21T16:06:20    
+2026-05-21T16:08:14    
+2026-05-21T16:08:14    added 126 packages, and audited 127 packages in 2m
+2026-05-21T16:08:14    
+2026-05-21T16:08:14    27 packages are looking for funding
+2026-05-21T16:08:14      run `npm fund` for details
+2026-05-21T16:08:14    
+2026-05-21T16:08:14    found 0 vulnerabilities
+2026-05-21T16:08:14    npm notice
+2026-05-21T16:08:14    npm notice New major version of npm available! 10.9.7 -> 11.15.0
+2026-05-21T16:08:14    npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.15.0
+2026-05-21T16:08:14    npm notice To update run: npm install -g npm@11.15.0
+2026-05-21T16:08:14    npm notice
+2026-05-21T16:08:14    
+2026-05-21T16:08:14    Zipping existing node_modules folder...
+2026-05-21T16:08:36    Done in 22 sec(s).
+2026-05-21T16:08:36    Build script snippets done in 139 sec(s).
+2026-05-21T16:08:36    Preparing output...
+2026-05-21T16:08:36    Using standard output preparation...
+2026-05-21T16:08:36    
+2026-05-21T16:08:36    Copying files to destination directory '/home/site/wwwroot'...
+2026-05-21T16:08:37    Copying to destination directory done in 1 sec(s).
+2026-05-21T16:08:37    Total time for destination directory preparation done in 1 sec(s).
+2026-05-21T16:08:37    
+2026-05-21T16:08:37    Removing existing manifest file
+2026-05-21T16:08:37    Creating a manifest file...
+2026-05-21T16:08:37    Manifest file created.
+2026-05-21T16:08:37    Copying .ostype to manifest output directory.
+2026-05-21T16:08:37    
+2026-05-21T16:08:37    Total execution done in 181 sec(s).
+2026-05-21T16:08:44  Running post deployment command(s)...
+2026-05-21T16:08:44  
+2026-05-21T16:08:45  Generating summary of Oryx build
+2026-05-21T16:08:45  Parsing the build logs
+2026-05-21T16:08:45  Found 0 issue(s)
+2026-05-21T16:08:45  
+2026-05-21T16:08:45  Build Summary :
+2026-05-21T16:08:45  ===============
+2026-05-21T16:08:46  Errors (0)
+2026-05-21T16:08:46  Warnings (0)
+2026-05-21T16:08:46  
+2026-05-21T16:08:46  Triggering container recycle for OneDeploy by adding/updating restartTrigger.txt to the site root path
+2026-05-21T16:08:46  Deployment successful. deployer = OneDeploy deploymentPath = OneDeploy

@@ -1,0 +1,18 @@
+<step title="Incoming Request" date="2026-05-21T15:49:02.734" instance="402821" url="/api/publish?type=zip&amp;async=True" method="POST" type="request" pid="834,1,15" Accept="*/*" Host="portfoliowebapp-linux.scm.azurewebsites.net" User-Agent="AZURECLI/2.80.0 (MSI)" Accept-Encoding="gzip, deflate" Authorization="Bea..." Cache-Control="no-cache" Content-Type="application/octet-stream" Cookie="ARRAffinity=402821769e385ba6aee3d1820d8244140b7f1a3fbaaaffc8780dfe140e606fcb; ARRAffinitySameSite=402821769e385ba6aee3d1820d8244140b7f1a3fbaaaffc8780dfe140e606fcb" Content-Length="276859" x-ms-client-request-id="80416e92-552c-11f1-82e0-c4cb7690d5a7" x-ms-artifact-checksum="31c5573963400ae8376a1a023fea6ea427d61b4fea297e5e8ed51a23e3f0f00b" X-ARR-LOG-ID="80416e92-552c-11f1-82e0-c4cb7690d5a7" CLIENT-IP="122.167.100.170:26608" X-SITE-DEPLOYMENT-ID="portfoliowebapp-linux" WAS-DEFAULT-HOSTNAME="portfoliowebapp-linux.scm.azurewebsites.net" X-Forwarded-Proto="https" X-AppService-Proto="https" X-Forwarded-TlsVersion="1.3" X-WAWS-Unencoded-URL="/api/publish?type=zip&amp;async=True" X-Client-IP="122.167.100.170" X-Client-Port="26608" >
+  <step title="OneDeploy" date="2026-05-21T15:49:02.891" >
+    <step title="None repository commit" date="2026-05-21T15:49:02.910" >
+      <step title="Commit id: ec8efe50-b6c3-4cc7-af0a-b0e92367026b" date="2026-05-21T15:49:02.912" Message="N/A" AuthorName="N/A" AuthorEmail="N/A" /><!-- duration: 1ms -->
+    </step><!-- duration: 5ms -->
+    <step title="Starting PushDeployAsync" date="2026-05-21T15:49:02.916" /><!-- duration: 1ms -->
+    <step title="Removing _del_node_modules symlink" date="2026-05-21T15:49:02.941" >
+      <step title="Writing artifact to /tmp/zipdeploy/bf11e742-c6cb-448e-a838-e6f1cffdfdc9.zip" date="2026-05-21T15:49:03.031" >
+        <step title="Writing multipart request body to /tmp/zipdeploy/bf11e742-c6cb-448e-a838-e6f1cffdfdc9.zip" date="2026-05-21T15:49:03.040" /><!-- duration: 10ms -->
+      </step><!-- duration: 118ms -->
+      <step title="Removing previous build artifact&apos;s manifest file" date="2026-05-21T15:49:03.169" >
+        <step title="Start deployment in the background" date="2026-05-21T15:49:03.197" >
+          <step title="Acquiring Deployment Lock" date="2026-05-21T15:49:03.256" /><!-- duration: 2ms -->
+          <step title="Acquired Deployment Lock" date="2026-05-21T15:49:03.282" /><!-- duration: 1ms -->
+        </step><!-- duration: 177ms -->
+      </step><!-- duration: 213ms -->
+      <step title="Outgoing response" date="2026-05-21T15:49:03.394" type="response" statusCode="202" statusText="Accepted" /><!-- duration: 9ms -->
+    </step><!-- duration: 464ms -->
